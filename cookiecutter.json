@@ -1,0 +1,9 @@
+{
+  "full_name": "Full Name",
+  "email": "Email Address",
+  "github_username": "github_username",
+  "repo_name": "repository_name",
+  "package_name": "{{ cookiecutter.repo_name.lower().replace(' ', '_') }}",
+  "project_short_description": "Short description",
+  "version": "0.1.0"
+}
