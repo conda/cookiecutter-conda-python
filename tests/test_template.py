@@ -16,7 +16,12 @@ def context():
 
 
 def test_template(cookies, context):
-    """Test the template for proper creation."""
+    """Test the template for proper creation.
+    
+    cookies is a fixture provided by the pytest-cookies
+    plugin. Its bake() method creates a temporary directory
+    and installs the cookiecutter template into that directory. 
+    """
     result = cookies.bake(extra_context=context)
 
     assert result.exit_code == 0
