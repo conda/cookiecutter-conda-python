@@ -2,4 +2,4 @@
 omit =
     setup.py
     {{ cookiecutter.package_name }}/__main__.py
-    {{ cookiecutter.package_name }}/tests/*
+    tests/*

@@ -25,6 +25,6 @@ install:
   - conda install --use-local {{ cookiecutter.package_name }}
   - conda info -a
 script:
-  - pytest -s -v --cov={{ cookiecutter.package_name }}
+  - pytest -v --cov={{ cookiecutter.package_name }} tests
 after_success:
   - coveralls
