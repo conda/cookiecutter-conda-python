@@ -1,0 +1,8 @@
+---
+exclude_paths:
+  - '{{cookiecutter.package_name}}/_version.py'
+  - 'tests/**/*'
+  - 'tests/*'
+  - 'benchmarks/**/*'
+  - 'setup.py'
+  - 'versioneer.py'

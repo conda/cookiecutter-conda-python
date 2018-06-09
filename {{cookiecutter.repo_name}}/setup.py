@@ -1,4 +1,5 @@
 from setuptools import setup
+import versioneer
 
 requirements = [
     # package requirements go here
@@ -6,7 +7,8 @@ requirements = [
 
 setup(
     name='{{ cookiecutter.repo_name }}',
-    version='{{ cookiecutter.version }}',
+    version=versioneer.get_version(),
+    cmdclass=versioneer.get_cmdclass(),
     description="{{ cookiecutter.project_short_description }}",
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
     author_email='{{ cookiecutter.email }}',
