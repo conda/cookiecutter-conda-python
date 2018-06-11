@@ -1,11 +1,10 @@
 # Config file for automatic testing at travis-ci.org
 
 language: python
+python:
   - "2.7"
   - "3.6"
-sudo: required
-before_install:
-  - sudo apt-get update
+
 install:
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
       wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
@@ -17,14 +16,13 @@ install:
   - hash -r
   - conda config --set always_yes yes
   - conda update -q conda
-  - conda install -n conda-build
-  - conda install anaconda-client
-  - conda install pytest-cov
-  - pip install coveralls
-  - conda build .
+  - conda install conda-build anaconda-client pytest pytest-cov
+  - conda config --set auto_update_conda no
+  - conda build conda.recipe --no-test
   - conda install --use-local {{ cookiecutter.package_name }}
   - conda info -a
 script:
-  - pytest -v --cov={{ cookiecutter.package_name }} tests
+  - pytest -v --color=yes --cov={{ cookiecutter.package_name }} tests
 after_success:
-  - coveralls
+  - conda install -c conda-forge codecov
+  - codecov

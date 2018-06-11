@@ -1,6 +1,14 @@
+{# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+{% raw -%}
+{% set data = load_setup_py_data() %}
+{%- endraw %}
+
 package:
   name: {{ cookiecutter.package_name }}
-  version: {{ cookiecutter.version }}
+  {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+  {% raw -%}
+  version: {{ data['version'] }}
+  {%- endraw %}
 
 source:
   path: ..
@@ -18,6 +26,22 @@ requirements:
     - setuptools
   run:
     - python
+    {% raw -%}
+    # dependencies are defined in setup.py
+    {% for dep in data['install_requires'] %}
+    - {{ dep.lower() }}
+    {% endfor %}
+    {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+    {%- endraw %}
+
+test:
+  source_files:
+    - tests
+  requires:
+    - pytest
+    - pytest-cov
+  commands:
+    - pytest tests
 
 about:
   home: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
