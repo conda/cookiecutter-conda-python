@@ -18,7 +18,12 @@ build:
   # separate bld.bat and build.sh files instead of this key.  Add the line
   # "skip: True  # [py<35]" (for example) to limit to Python 3.5 and newer, or
   # "skip: True  # [not win]" to limit to Windows.
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  {% raw -%}
+  script: {{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .
+  {%- endraw %}
+  {% if cookiecutter.noarch_python == 'True' -%}
+  noarch: python
+  {% endif %}
 
 requirements:
   build:
@@ -46,3 +51,7 @@ test:
 about:
   home: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
   summary: {{ cookiecutter.project_short_description }}
+  {% raw -%}
+  license: {{ setup_py.get('license') }}
+  {%- endraw %}
+  license_file: LICENSE
