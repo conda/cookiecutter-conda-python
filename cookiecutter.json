@@ -5,6 +5,7 @@
   "repo_name": "repository_name",
   "package_name": "{{ cookiecutter.repo_name.lower().replace(' ', '_') }}",
   "project_short_description": "Short description",
-  "noarch_python": "True",
+  "noarch_python": "y",
+  "include_cli": "y",
   "open_source_license": ["MIT", "BSD", "ISC", "Apache", "GNUv3", "Proprietary"]
 }

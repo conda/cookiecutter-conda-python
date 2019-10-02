@@ -21,8 +21,16 @@ build:
   {% raw -%}
   script: {{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .
   {%- endraw %}
-  {% if cookiecutter.noarch_python == 'True' -%}
+  {% if cookiecutter.noarch_python == 'y' -%}
   noarch: python
+  {% endif %}
+  {% if cookiecutter.include_cli == 'y' -%}
+  {% raw -%}
+  entry_points:
+    {% for entry in setup_py['entry_points']['console_scripts'] %}
+      - {{ entry.split('=')[0].strip() }} = {{ entry.split('=')[1].strip() }}
+    {% endfor %}
+  {%- endraw %}
   {% endif %}
 
 requirements:

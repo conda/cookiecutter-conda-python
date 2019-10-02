@@ -15,11 +15,13 @@ setup(
     author_email='{{ cookiecutter.email }}',
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',
     packages=['{{ cookiecutter.package_name }}'],
+    {% if cookiecutter.include_cli == "y" -%}
     entry_points={
         'console_scripts': [
             '{{ cookiecutter.package_name }}={{ cookiecutter.package_name }}.cli:cli'
         ]
     },
+    {%- endif %}
     install_requires=requirements,
     keywords='{{ cookiecutter.repo_name }}',
     classifiers=[
