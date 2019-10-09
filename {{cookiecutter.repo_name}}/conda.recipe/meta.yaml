@@ -37,7 +37,9 @@ requirements:
   # if you need compilers, uncomment these
   #    read more at https://docs.conda.io/projects/conda-build/en/latest/resources/compiler-tools.html
   # build:
+  {% raw -%}
   #   - {{ compilers('c') }}
+  {%- endraw %}
   host:
     - python
     - pip
