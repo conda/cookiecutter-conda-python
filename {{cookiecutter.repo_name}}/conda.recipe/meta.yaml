@@ -18,12 +18,16 @@ build:
   # separate bld.bat and build.sh files instead of this key.  Add the line
   # "skip: True  # [py<35]" (for example) to limit to Python 3.5 and newer, or
   # "skip: True  # [not win]" to limit to Windows.
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: pip install --no-deps -vv .
 
 requirements:
-  build:
+  # if you need compilers, uncomment these
+  #    read more at https://docs.conda.io/projects/conda-build/en/latest/resources/compiler-tools.html
+  # build:
+  #   - {{ compilers('c') }}
+  host:
     - python
-    - setuptools
+    - pip
   run:
     - python
     {% raw -%}
