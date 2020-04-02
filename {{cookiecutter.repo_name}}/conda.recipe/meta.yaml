@@ -66,6 +66,6 @@ about:
   home: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
   summary: {{ cookiecutter.project_short_description }}
   {% raw -%}
-  license: {{ setup_py.get('license') }}
+  license: {{ data['license'] }}
   {%- endraw %}
   license_file: LICENSE
