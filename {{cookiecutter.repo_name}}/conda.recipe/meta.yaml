@@ -27,7 +27,7 @@ build:
   {% if cookiecutter.include_cli == 'y' -%}
   {% raw -%}
   entry_points:
-    {% for entry in setup_py['entry_points']['console_scripts'] %}
+    {% for entry in data['entry_points']['console_scripts'] %}
       - {{ entry.split('=')[0].strip() }} = {{ entry.split('=')[1].strip() }}
     {% endfor %}
   {%- endraw %}
