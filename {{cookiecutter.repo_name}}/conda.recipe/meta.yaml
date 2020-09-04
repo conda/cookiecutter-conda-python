@@ -27,7 +27,7 @@ build:
   {% if cookiecutter.include_cli == 'y' -%}
   {% raw -%}
   entry_points:
-    {% for entry in setup_py['entry_points']['console_scripts'] %}
+    {% for entry in data['entry_points']['console_scripts'] %}
       - {{ entry.split('=')[0].strip() }} = {{ entry.split('=')[1].strip() }}
     {% endfor %}
   {%- endraw %}
@@ -66,6 +66,6 @@ about:
   home: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
   summary: {{ cookiecutter.project_short_description }}
   {% raw -%}
-  license: {{ setup_py.get('license') }}
+  license: {{ data.get('license') }}
   {%- endraw %}
   license_file: LICENSE
