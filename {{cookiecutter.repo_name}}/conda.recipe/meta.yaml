@@ -4,7 +4,7 @@
 {%- endraw %}
 
 package:
-  name: {{ cookiecutter.package_name }}
+  name: {{ cookiecutter.package_name.replace('_', '-') }}
   {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
   {% raw -%}
   version: {{ data['version'] }}
