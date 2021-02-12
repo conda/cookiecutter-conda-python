@@ -60,7 +60,7 @@ test:
     - pytest
     - pytest-cov
   commands:
-    - pytest tests
+    - pytest
 
 about:
   home: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
