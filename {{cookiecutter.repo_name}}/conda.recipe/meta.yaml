@@ -1,11 +1,11 @@
-{# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+{# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build -#}
 {% raw -%}
 {% set data = load_setup_py_data() %}
 {%- endraw %}
 
 package:
-  name: {{ cookiecutter.package_name }}
-  {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
+  name: {{ cookiecutter.package_name.replace('_', '-') }}
+  {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build -#}
   {% raw -%}
   version: {{ data['version'] }}
   {%- endraw %}
@@ -45,12 +45,12 @@ requirements:
     - pip
   run:
     - python
+    {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build -#}
     {% raw -%}
     # dependencies are defined in setup.py
     {% for dep in data['install_requires'] %}
     - {{ dep.lower() }}
     {% endfor %}
-    {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build #}
     {%- endraw %}
 
 test:
@@ -60,7 +60,7 @@ test:
     - pytest
     - pytest-cov
   commands:
-    - pytest tests
+    - pytest
 
 about:
   home: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
