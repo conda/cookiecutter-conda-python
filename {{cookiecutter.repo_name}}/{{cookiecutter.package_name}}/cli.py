@@ -13,7 +13,7 @@ def cli(args=None):
         version="{{ cookiecutter['package_name']}} %s" % __version__,
     )
 
-    args = p.parse_args(args)
+    args, unknown = p.parse_known_args(args)
 
     # do something with the args
     print("CLI template - fix me up!")
