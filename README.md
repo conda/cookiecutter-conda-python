@@ -15,7 +15,7 @@ conda packages using Python
 
 Prior to installing cookiecutter-conda-python, the cookiecutter package must be installed in your environment. This is achieved via the following command::
 
-    $ conda install cookiecutter
+    $ conda install cookiecutter 
 
 With cookiecutter installed, the cookiecutter-conda-python template can be installed with::
 
