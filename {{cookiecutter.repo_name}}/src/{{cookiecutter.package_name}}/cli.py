@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 from {{ cookiecutter['package_name'] }} import __version__
 
+
 def cli(args=None):
     p = ArgumentParser(
         description="{{ cookiecutter['project_short_description']}}",
