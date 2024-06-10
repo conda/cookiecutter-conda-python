@@ -7,9 +7,9 @@ name = "{{ cookiecutter.repo_name }}"
 dynamic = ["version"]
 description = "{{ cookiecutter.project_short_description }}"
 authors = [
-    { name = "{{ cookiecutter.fullname.replace('\"', '\\\"')", email = "{{ cookiecutter.email }}" },
+    { name = "{{ cookiecutter.full_name.replace('\"', '\\\"') }}", email = "{{ cookiecutter.email }}" },
 ]
-license = {text = "{{ cookiecutter.source_license }}"}
+license = {text = "{{ cookiecutter.open_source_license }}"}
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
@@ -48,9 +48,9 @@ include = [
     "/pyproject.toml"
 ]
 
-{% if cookiecutter.include_cli = "y" -%}
+{% if cookiecutter.include_cli == "y" -%}
 [project.scripts]
-conda-project = "{{ cookiecutter.package_name }}.cli.main:main"
+{{ cookiecutter.repo_name }} = "{{ cookiecutter.package_name }}.cli.main:main"
 {%- endif %}
 
 [project.urls]
@@ -72,7 +72,7 @@ exclude_lines = [
 universal = true
 
 [tool.mypy]
-files = [ "src/{{ cookiecutter.pacakge_name }}/**/*.py" ]
+files = [ "src/{{ cookiecutter.package_name }}/**/*.py" ]
 python_version = "3.9"
 disallow_untyped_defs = true
 warn_no_return = true
