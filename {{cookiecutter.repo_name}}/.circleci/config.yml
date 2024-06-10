@@ -9,12 +9,10 @@ jobs:
     steps:
       - checkout
 
-      {% raw %}
-      # - restore_cache:
+      {% raw %}# - restore_cache:
       #     keys:
       #     - v1-dependencies-{{ checksum "environment.yml" }}
-      #     - v1-dependencies-
-      {% endraw %}
+      #     - v1-dependencies-{% endraw %}
 
       - run:
           name: install dependencies
@@ -27,12 +25,10 @@ jobs:
             conda build conda.recipe --no-test
             conda install --use-local {{ cookiecutter.package_name }}
 
-      {% raw %}
-      # - save_cache:
+      {% raw %}# - save_cache:
       #     paths:
       #       - /opt/conda
-      #     key: v1-dependencies-{{ checksum "environment.yml" }}
-      {% endraw %}
+      #     key: v1-dependencies-{{ checksum "environment.yml" }}{% endraw %}
 
       - run:
           name: run tests
