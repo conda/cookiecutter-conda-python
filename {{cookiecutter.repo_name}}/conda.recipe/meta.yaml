@@ -2,6 +2,7 @@
 {% raw -%}
 {% set pyproject = load_file_data('../pyproject.toml', from_recipe_dir=True) %}
 {% set version = VERSION %}
+{% set project = pyproject['project'] %}
 {%- endraw %}
 
 package:
