@@ -17,7 +17,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 dependencies = [
-    # package requirements go here
+  # package requirements go here
 ]
 description = "{{ cookiecutter.project_short_description }}"
 dynamic = ["version"]
