@@ -1,15 +1,18 @@
 # cookiecutter-conda-python
-A [cookiecutter](https://www.github.com/audreyr/cookiecutter "cookiecutter") template for 
+A [cookiecutter](https://www.github.com/audreyr/cookiecutter "cookiecutter") template for
 conda packages using Python
 
 ## Features
 
- - Automatic versioning with versioneer (requires git annotated tags before it'll work)
- - Ready-made conda recipe found in conda.recipe/meta.yaml
- - Pre-configured for Appveyor, Travis CI and Circle CI (you need to activate each of these individually)
- - Coverage report hosted on Codecov.io (activated after first successful CI run, which uploads results)
- - Code analysis with codacy, setup to exclude versioneer and tests (requires activation of project at Codacy)
- - setup.cfg with flake8 opinions and pytest/pytest-cov configuration (including fixed PYTHONHASHSEED)
+- Modern build system using [pyproject.toml](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/) and [hatchling](https://pypi.org/project/hatchling/) build backend
+- Automatic versioning with [hatch-vcs](https://pypi.org/project/hatch-vcs/) (requires git annotated tags before it'll work)
+- Ready-made conda recipe found in conda.recipe/meta.yaml
+  - It reads the pyproject.toml file for almost all metadata. You will likely not need to modify it
+  - You will need to set the `VERSION` env var to the output of `hatch version` to build the package
+- [pre-commit](https://pre-commit.com/) config for automatic linting with every git commit
+- Pre-configured for Appveyor, Travis CI and Circle CI (you need to activate each of these individually)
+- Coverage report hosted on Codecov.io (activated after first successful CI run, which uploads results)
+- Code analysis with codacy, setup to exclude version file and tests (requires activation of project at Codacy)
 
 ## Installation
 
@@ -45,6 +48,14 @@ Once cookiecutter clones the template, you will be asked a series of questions r
 After answering the questions asked during installation, a conda Python package will be
 created in your current working directory. This package will contain a simple CLI script
 and the conda recipe necessary to build the application into a conda package.
+
+You will need to have conda-build, hatch, hatchling, and hatch-vcs to build::
+
+    conda install conda-build hatch hatchling hatch-vcs
+
+To build the conda package, be sure to set `VERSION`
+
+    VERSION=`hatch version` conda build conda.recipe/
 
 You'll still need to activate the web services you want to use - they won't be active automatically.
 
