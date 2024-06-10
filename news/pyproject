@@ -1,0 +1,7 @@
+### Enhancements
+
+* use `src/<package_name>` dir structure
+* switch to pyproject.toml and hatchling
+* use hatch and hatch-vcs instead of versioneer
+* add typing to cli.py
+* added pre-commit with ruff linting
