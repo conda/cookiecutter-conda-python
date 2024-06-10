@@ -4,7 +4,7 @@ requires = ["hatchling", "hatch-vcs>=0.3", "setuptools-scm>=7.1"]
 
 [project]
 authors = [
-  {name = "{{ cookiecutter.full_name.replace('\"', '\\\"') }}", email = "{{ cookiecutter.email }}"},
+  {name = "{{ cookiecutter.full_name.replace('\"', '\\\"') }}", email = "{{ cookiecutter.email }}"}
 ]
 classifiers = [
   "Programming Language :: Python",
@@ -19,8 +19,8 @@ classifiers = [
 dependencies = [
     # package requirements go here
 ]
-dynamic = ["version"]
 description = "{{ cookiecutter.project_short_description }}"
+dynamic = ["version"]
 license = {text = "{{ cookiecutter.open_source_license }}"}
 name = "{{ cookiecutter.repo_name }}"
 readme = "README.rst"
@@ -70,7 +70,7 @@ source = "vcs"
 
 [tool.mypy]
 disallow_untyped_defs = true
-files = [ "src/{{ cookiecutter.package_name }}/**/*.py" ]
+files = ["src/{{ cookiecutter.package_name }}/**/*.py"]
 python_version = "3.9"
 warn_no_return = true
 
