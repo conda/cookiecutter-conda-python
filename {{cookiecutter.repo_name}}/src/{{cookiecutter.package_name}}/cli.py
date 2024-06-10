@@ -1,8 +1,9 @@
 from argparse import ArgumentParser
+from typing import Optional, Sequence
 from {{ cookiecutter['package_name'] }} import __version__
 
 
-def cli(args=None):
+def cli(args: Optional[Sequence[str]] = None) -> None:
     p = ArgumentParser(description="{{ cookiecutter['project_short_description']}}", conflict_handler="resolve")
     p.add_argument(
         "-V",
@@ -12,7 +13,7 @@ def cli(args=None):
         version="{{ cookiecutter['package_name']}} %s" % __version__,
     )
 
-    args, unknown = p.parse_known_args(args)
+    parsed, unknown = p.parse_known_args(args)
 
     # do something with the args
     print("CLI template - fix me up!")
