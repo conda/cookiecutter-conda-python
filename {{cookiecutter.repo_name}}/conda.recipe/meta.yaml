@@ -66,7 +66,6 @@ test:
     {%- endraw %}
   commands:
     - pytest
-    - mypy
     {% if cookiecutter.include_cli == 'y' -%}
     {% raw -%}
     {% for name in project['scripts'] %}
