@@ -1,7 +1,7 @@
 # This is the configuration for pre-commit, a local framework for managing pre-commit hooks
 #   Check out the docs at: https://pre-commit.com/
 
-exclude: ^(.*/env/.*|envs/.*|src/{{ cookiecutter.pacakge_name }}/_version.py)  # Exclude conda environments and version file
+exclude: ^(.*/env/.*|envs/.*|src/{{ cookiecutter.package_name }}/_version.py)  # Exclude conda environments and version file
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
