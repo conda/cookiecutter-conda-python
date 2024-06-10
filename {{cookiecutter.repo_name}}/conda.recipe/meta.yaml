@@ -65,13 +65,14 @@ test:
     {% endfor %}
     {%- endraw %}
   commands:
-    - python -c "from {{ cookiecutter.package_name }} import __version__; assert __version__ == \"{% raw %}{{ version }}{%- endraw %}\""
     - pytest
+    - mypy
     {% if cookiecutter.include_cli == 'y' -%}
     {% raw -%}
     {% for name in project['scripts'] %}
     - {{ name }}
     {% endfor %}{%- endraw %}{% endif %}
+    - python -c "from {{ cookiecutter.package_name }} import __version__; assert __version__ == \"{% raw %}{{ version }}{%- endraw %}\""
 
 about:
   home: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
