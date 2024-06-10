@@ -60,3 +60,6 @@ target/
 
 # pyenv python configuration file
 .python-version
+
+# hatch-vcs version file
+src/{{ cookiecutter.package_name }}/_version.py
