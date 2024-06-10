@@ -10,7 +10,7 @@ authors = [
     { name = "{{ cookiecutter.full_name.replace('\"', '\\\"') }}", email = "{{ cookiecutter.email }}" },
 ]
 license = {text = "{{ cookiecutter.open_source_license }}"}
-readme = "README.md"
+readme = "README.rst"
 requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python",
@@ -39,9 +39,6 @@ source = "vcs"
 [tool.hatch.build.hooks.vcs]
 version-file = "src/{{ cookiecutter.package_name }}/_version.py"
 
-[tool.hatch.version.raw-options]
-version_scheme = "post-release"
-
 [tool.hatch.build.targets.sdist]
 include = [
     "/src/{{ cookiecutter.package_name }}",
@@ -50,7 +47,7 @@ include = [
 
 {% if cookiecutter.include_cli == "y" -%}
 [project.scripts]
-{{ cookiecutter.repo_name }} = "{{ cookiecutter.package_name }}.cli.main:main"
+{{ cookiecutter.repo_name }} = "{{ cookiecutter.package_name }}.cli:cli"
 {%- endif %}
 
 [project.urls]
