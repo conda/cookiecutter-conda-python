@@ -77,8 +77,11 @@ warn_no_return = true
 [tool.pytest.ini_options]
 addopts = [
   "-vv",
+  "--color=yes",
+  "--cov-append",
+  "--cov-branch",
   "--cov-report=term-missing",
-  "--cov='{{ cookiecutter.package_name }}'",
+  "--cov={{ cookiecutter.package_name }}",
   "--tb=native",
   "--strict-markers",
   "--durations=20"
