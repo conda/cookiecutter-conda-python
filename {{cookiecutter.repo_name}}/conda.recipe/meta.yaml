@@ -23,8 +23,7 @@ build:
   script: SETUPTOOLS_SCM_PRETEND_VERSION={{version}} {{ PYTHON }} -m pip install --no-build-isolation --no-deps --ignore-installed -vv .
   {%- endraw %}
   {% if cookiecutter.noarch_python == 'y' -%}
-  noarch: python
-  {% endif %}
+  noarch: python{% endif %}
   number: 0
   {% if cookiecutter.include_cli == 'y' -%}{% raw -%}entry_points:
     {% for name, reference in project['scripts'].items() %}
