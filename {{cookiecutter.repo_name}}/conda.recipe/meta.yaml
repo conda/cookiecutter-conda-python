@@ -26,14 +26,10 @@ build:
   noarch: python
   {% endif %}
   number: 0
-  {% if cookiecutter.include_cli == 'y' -%}
-  {% raw -%}
-  entry_points:
+  {% if cookiecutter.include_cli == 'y' -%}{% raw -%}entry_points:
     {% for name, reference in project['scripts'].items() %}
     - {{ name }} = {{ reference }}
-    {% endfor %}
-  {%- endraw %}
-  {% endif %}
+    {% endfor %}{%- endraw %}{% endif %}
 
 requirements:
   # if you need compilers, uncomment these
@@ -76,9 +72,7 @@ test:
     {% raw -%}
     {% for name in project['scripts'] %}
     - {{ name }}
-    {% endfor %}
-    {%- endraw %}
-    {% endif %}
+    {% endfor %}{%- endraw %}{% endif %}
 
 about:
   home: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
