@@ -1,13 +1,14 @@
 {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build -#}
 {% raw -%}
-{% set data = load_setup_py_data() %}
+{% set pyproject = load_file_data('../pyproject.toml', from_recipe_dir=True) %}
+{% set version = VERSION %}
+{% set project = pyproject['project'] %}
 {%- endraw %}
 
 package:
   name: {{ cookiecutter.package_name.replace('_', '-') }}
-  {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build -#}
   {% raw -%}
-  version: {{ data['version'] }}
+  version: {{ version }}
   {%- endraw %}
 
 source:
@@ -19,19 +20,15 @@ build:
   # "skip: True  # [py<35]" (for example) to limit to Python 3.5 and newer, or
   # "skip: True  # [not win]" to limit to Windows.
   {% raw -%}
-  script: {{ PYTHON }} -m pip install --no-deps --ignore-installed -vv .
+  script: {{ PYTHON }} -m pip install --no-build-isolation --no-deps --ignore-installed -vv .
   {%- endraw %}
   {% if cookiecutter.noarch_python == 'y' -%}
-  noarch: python
-  {% endif %}
-  {% if cookiecutter.include_cli == 'y' -%}
-  {% raw -%}
-  entry_points:
-    {% for entry in data['entry_points']['console_scripts'] %}
-      - {{ entry.split('=')[0].strip() }} = {{ entry.split('=')[1].strip() }}
-    {% endfor %}
-  {%- endraw %}
-  {% endif %}
+  noarch: python{% endif %}
+  number: 0
+  {% if cookiecutter.include_cli == 'y' -%}{% raw -%}entry_points:
+    {% for name, reference in project['scripts'].items() %}
+    - {{ name }} = {{ reference }}
+    {% endfor %}{%- endraw %}{% endif %}
 
 requirements:
   # if you need compilers, uncomment these
@@ -41,31 +38,45 @@ requirements:
   #   - {{ compilers('c') }}
   {%- endraw %}
   host:
-    - python
-    - pip
-  run:
-    - python
-    {# raw is for ignoring templating with cookiecutter, leaving it for use with conda-build -#}
     {% raw -%}
-    # dependencies are defined in setup.py
-    {% for dep in data['install_requires'] %}
+    - python {{ project['requires-python'] }}
+    - pip
+    {% for dep in pyproject['build-system']['requires'] %}
+    - {{ dep.lower() }}
+    {% endfor %}
+    {%- endraw %}
+  run:
+    {% raw -%}
+    - python {{ project['requires-python'] }}
+    {% for dep in project['dependencies'] %}
     - {{ dep.lower() }}
     {% endfor %}
     {%- endraw %}
 
 test:
+  imports:
+    - {{ cookiecutter.package_name }}
   source_files:
     - tests
   requires:
-    - pytest
-    - pytest-cov
+    {% raw -%}
+    {% for dep in project['optional-dependencies']['test'] %}
+    - {{ dep.lower() }}
+    {% endfor %}
+    {%- endraw %}
   commands:
     - pytest
+    {% if cookiecutter.include_cli == 'y' -%}
+    {% raw -%}
+    {% for name in project['scripts'] %}
+    - {{ name }}
+    {% endfor %}{%- endraw %}{% endif %}
+    - python -c "from {{ cookiecutter.package_name }} import __version__; assert __version__ == \"{% raw %}{{ version }}{%- endraw %}\""
 
 about:
   home: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
   summary: {{ cookiecutter.project_short_description }}
   {% raw -%}
-  license: {{ data.get('license') }}
+  license: {{ pyproject.get('license') }}
   {%- endraw %}
   license_file: LICENSE

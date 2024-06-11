@@ -1,2 +1,3 @@
-{{cookiecutter.package_name}}/_version.py export-subst
+src/{{cookiecutter.package_name}}/_version.py export-subst
 * text=auto eol=lf
+.git_archival.txt  export-subst

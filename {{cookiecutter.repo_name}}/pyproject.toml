@@ -1,0 +1,94 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling", "hatch-vcs>=0.3", "setuptools-scm>=7.1"]
+
+[project]
+authors = [
+  {name = "{{ cookiecutter.full_name.replace('\"', '\\\"') }}", email = "{{ cookiecutter.email }}"}
+]
+classifiers = [
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Software Development :: Libraries :: Python Modules"
+]
+dependencies = [
+  # package requirements go here
+]
+description = "{{ cookiecutter.project_short_description }}"
+dynamic = ["version"]
+license = {text = "{{ cookiecutter.open_source_license }}"}
+name = "{{ cookiecutter.repo_name }}"
+readme = "README.rst"
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "pytest-cov",
+  "mypy"
+]
+
+{% if cookiecutter.include_cli == "y" -%}
+[project.scripts]
+{{ cookiecutter.repo_name }} = "{{ cookiecutter.package_name }}.cli:cli"
+{%- endif %}
+
+[project.urls]
+repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}"
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  # This covers both typing.TYPE_CHECKING and plain TYPE_CHECKING, with any amount of whitespace
+  "if\\s+(typing\\.)?TYPE_CHECKING:",
+  'if __name__ == "__main__":'
+]
+omit = [
+  "src/{{ cookiecutter.package_name }}/__main__.py",
+  "src/{{ cookiecutter.package_name }}/_version.py",
+  "tests/*"
+]
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/{{ cookiecutter.package_name }}/_version.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src/{{ cookiecutter.package_name }}",
+  "/pyproject.toml"
+]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.mypy]
+disallow_untyped_defs = true
+files = ["src/{{ cookiecutter.package_name }}/**/*.py"]
+python_version = "3.9"
+warn_no_return = true
+
+[tool.pytest.ini_options]
+addopts = [
+  "-vv",
+  "--color=yes",
+  "--cov-append",
+  "--cov-branch",
+  "--cov-report=term-missing",
+  "--cov={{ cookiecutter.package_name }}",
+  "--tb=native",
+  "--strict-markers",
+  "--durations=20"
+]
+markers = [
+  "serial: execute test serially (to avoid race conditions)",
+  "slow: tests can take a long time (deselect with '-m \"not slow\"')"
+]
+norecursedirs = [".*", "*.egg*", "build", "dist", "conda.recipe", "examples", "env", "envs", "scripts"]

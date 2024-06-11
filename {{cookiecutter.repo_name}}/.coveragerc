@@ -1,7 +1,0 @@
-[report]
-omit =
-    setup.py
-    {{ cookiecutter.package_name }}/__main__.py
-    {{ cookiecutter.package_name }}/_version.py
-    versioneer.py
-    tests/*
